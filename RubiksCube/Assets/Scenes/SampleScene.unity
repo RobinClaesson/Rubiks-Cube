@@ -455,14 +455,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: CubeHolder
       objectReference: {fileID: 0}
-    - target: {fileID: 6695387640718378289, guid: 05163c001c1f1334398dec7adb736447, type: 3}
-      propertyPath: rotationTarget
-      value: 
-      objectReference: {fileID: 924341683371855141}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05163c001c1f1334398dec7adb736447, type: 3}
---- !u!1 &924341683371855141 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3301712576919181863, guid: 05163c001c1f1334398dec7adb736447, type: 3}
-  m_PrefabInstance: {fileID: 924341683371855140}
-  m_PrefabAsset: {fileID: 0}
