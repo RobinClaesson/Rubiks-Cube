@@ -12,6 +12,8 @@ public class RotateCube : MonoBehaviour
     public float rotationSpeed = 200f;
     public float dragSpeed = 0.1f;
 
+    public bool isRotating => transform.rotation != rotationTarget.transform.rotation;
+
     // Update is called once per frame
     void Update()
     {
@@ -35,7 +37,7 @@ public class RotateCube : MonoBehaviour
         else
         {
             //Rotate cube towards the swiped position
-            if (transform.rotation != rotationTarget.transform.rotation)
+            if (isRotating)
             {
                 var step = rotationSpeed * Time.deltaTime;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.transform.rotation, step);
@@ -62,54 +64,49 @@ public class RotateCube : MonoBehaviour
 
             //Find what swipe was made
             if (swipe.x < 0 && swipe.y > -0.5f && swipe.y < 0.5f)
-                MakeWholeRotationMove(WholeCubeRotation.Y);
+                MakeWholeRotationMove(Move.Y);
             else if (swipe.x > 0 && swipe.y > -0.5f && swipe.y < 0.5f)
-                MakeWholeRotationMove(WholeCubeRotation.Yp);
+                MakeWholeRotationMove(Move.Yp);
 
             else if (swipe.y < 0 && swipe.x > 0f)
-                MakeWholeRotationMove(WholeCubeRotation.Z);
+                MakeWholeRotationMove(Move.Z);
             else if (swipe.y > 0 && swipe.x < 0f)
-                MakeWholeRotationMove(WholeCubeRotation.Zp);
+                MakeWholeRotationMove(Move.Zp);
 
             else if (swipe.y > 0 && swipe.x > 0f)
-                MakeWholeRotationMove(WholeCubeRotation.X);
+                MakeWholeRotationMove(Move.X);
             else if (swipe.y < 0 && swipe.x < 0f)
-                MakeWholeRotationMove(WholeCubeRotation.Xp);
-
-
-
+                MakeWholeRotationMove(Move.Xp);
         }
     }
 
-    public void MakeWholeRotationMove(WholeCubeRotation move)
+    public void MakeWholeRotationMove(Move move)
     {
         switch (move)
         {
-            case WholeCubeRotation.X:
+            case Move.X:
                 rotationTarget.transform.Rotate(0, 0, -90, Space.World);
                 break;
 
-            case WholeCubeRotation.Xp:
+            case Move.Xp:
                 rotationTarget.transform.Rotate(0, 0, 90, Space.World);
                 break;
 
-            case WholeCubeRotation.Y:
+            case Move.Y:
                 rotationTarget.transform.Rotate(0, 90, 0, Space.World);
                 break;
 
-            case WholeCubeRotation.Yp:
+            case Move.Yp:
                 rotationTarget.transform.Rotate(0, -90, 0, Space.World);
                 break;
 
-            case WholeCubeRotation.Z:
+            case Move.Z:
                 rotationTarget.transform.Rotate(-90, 0, 0, Space.World);
                 break;
 
-            case WholeCubeRotation.Zp:
+            case Move.Zp:
                 rotationTarget.transform.Rotate(90, 0, 0, Space.World);
                 break;
         }
-
-        print(move.ToString());
     }
 }
