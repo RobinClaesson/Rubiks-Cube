@@ -138,6 +138,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebcc0e47dc606b4ba6d1d94a3f56910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationTarget: {fileID: 3301712576919181863}
+  rotationSpeed: 200
+  dragSpeed: 0.1
+--- !u!114 &7792960141145540927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3310995396661413909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b5f0b534d5edf4c976bb07ccaf75b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateCubeScript: {fileID: 6695387640718378289}
 --- !u!4 &5794744967241470918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 901241426558736113, guid: 285c905f4c33d25418033e4199fb5970, type: 3}

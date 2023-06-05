@@ -12,12 +12,6 @@ public class RotateCube : MonoBehaviour
     public float rotationSpeed = 200f;
     public float dragSpeed = 0.1f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -67,12 +61,7 @@ public class RotateCube : MonoBehaviour
             swipe.Normalize();
 
             //Find what swipe was made
-            if (swipe.y > 0 && swipe.x > 0f)
-                MakeWholeRotationMove(WholeCubeRotation.X);
-            else if (swipe.y < 0 && swipe.x < 0f)
-                MakeWholeRotationMove(WholeCubeRotation.Xp);
-
-            else if (swipe.x < 0 && swipe.y > -0.5f && swipe.y < 0.5f)
+            if (swipe.x < 0 && swipe.y > -0.5f && swipe.y < 0.5f)
                 MakeWholeRotationMove(WholeCubeRotation.Y);
             else if (swipe.x > 0 && swipe.y > -0.5f && swipe.y < 0.5f)
                 MakeWholeRotationMove(WholeCubeRotation.Yp);
@@ -81,7 +70,14 @@ public class RotateCube : MonoBehaviour
                 MakeWholeRotationMove(WholeCubeRotation.Z);
             else if (swipe.y > 0 && swipe.x < 0f)
                 MakeWholeRotationMove(WholeCubeRotation.Zp);
-            
+
+            else if (swipe.y > 0 && swipe.x > 0f)
+                MakeWholeRotationMove(WholeCubeRotation.X);
+            else if (swipe.y < 0 && swipe.x < 0f)
+                MakeWholeRotationMove(WholeCubeRotation.Xp);
+
+
+
         }
     }
 
