@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using Newtonsoft.Json.Bson;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class RotateCube : MonoBehaviour
 {
@@ -29,6 +27,9 @@ public class RotateCube : MonoBehaviour
         oldMousePos = Input.mousePosition;
     }
 
+    /// <summary>
+    /// Updates the rotation of the cube based on the mouse position and target rotation
+    /// </summary>
     private void UpdateRotation()
     {
         if (Input.GetMouseButton(1))
@@ -48,6 +49,9 @@ public class RotateCube : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if a swipe was made and rotates the cube accordingly
+    /// </summary>
     private void CheckSwipe()
     {
         //Save position at initial click
@@ -63,63 +67,53 @@ public class RotateCube : MonoBehaviour
             swipe.Normalize();
 
             //Find what swipe was made
-            if (LeftSwipe())
-            {
-                rotationTarget.transform.Rotate(0, 90, 0, Space.World);
-            }
-            else if (RightSwipe())
-            {
-                rotationTarget.transform.Rotate(0, -90, 0, Space.World);
-            }
-            else if (UpLeftSwipe())
-            {
-                rotationTarget.transform.Rotate(90, 0, 0, Space.World);
-            }
-            else if (DownLeftSwipe())
-            {
-                rotationTarget.transform.Rotate(0, 0, 90, Space.World);
-            }
-            else if (UpRightSwipe())
-            {
-                rotationTarget.transform.Rotate(0, 0, -90, Space.World);
-            }
-            else if (DownRightSwipe())
-            {
-                rotationTarget.transform.Rotate(-90, 0, 0, Space.World);
-            }
+            if (swipe.y > 0 && swipe.x > 0f)
+                MakeWholeRotationMove(WholeCubeRotation.X);
+            else if (swipe.y < 0 && swipe.x < 0f)
+                MakeWholeRotationMove(WholeCubeRotation.Xp);
+
+            else if (swipe.x < 0 && swipe.y > -0.5f && swipe.y < 0.5f)
+                MakeWholeRotationMove(WholeCubeRotation.Y);
+            else if (swipe.x > 0 && swipe.y > -0.5f && swipe.y < 0.5f)
+                MakeWholeRotationMove(WholeCubeRotation.Yp);
+
+            else if (swipe.y < 0 && swipe.x > 0f)
+                MakeWholeRotationMove(WholeCubeRotation.Z);
+            else if (swipe.y > 0 && swipe.x < 0f)
+                MakeWholeRotationMove(WholeCubeRotation.Zp);
+            
         }
     }
 
-    //functions to determine a swipe
-    bool LeftSwipe()
+    public void MakeWholeRotationMove(WholeCubeRotation move)
     {
-        return swipe.x < 0 && swipe.y > -0.5f && swipe.y < 0.5f;
+        switch (move)
+        {
+            case WholeCubeRotation.X:
+                rotationTarget.transform.Rotate(0, 0, -90, Space.World);
+                break;
+
+            case WholeCubeRotation.Xp:
+                rotationTarget.transform.Rotate(0, 0, 90, Space.World);
+                break;
+
+            case WholeCubeRotation.Y:
+                rotationTarget.transform.Rotate(0, 90, 0, Space.World);
+                break;
+
+            case WholeCubeRotation.Yp:
+                rotationTarget.transform.Rotate(0, -90, 0, Space.World);
+                break;
+
+            case WholeCubeRotation.Z:
+                rotationTarget.transform.Rotate(-90, 0, 0, Space.World);
+                break;
+
+            case WholeCubeRotation.Zp:
+                rotationTarget.transform.Rotate(90, 0, 0, Space.World);
+                break;
+        }
+
+        print(move.ToString());
     }
-
-    bool RightSwipe()
-    {
-        return swipe.x > 0 && swipe.y > -0.5f && swipe.y < 0.5f;
-    }
-
-    bool UpLeftSwipe()
-    {
-        return swipe.y > 0 && swipe.x < 0f;
-    }
-
-    bool UpRightSwipe()
-    {
-        return swipe.y > 0 && swipe.x > 0f;
-    }
-
-    bool DownLeftSwipe()
-    {
-        return swipe.y < 0 && swipe.x < 0f;
-    }
-
-    bool DownRightSwipe()
-    {
-        return swipe.y < 0 && swipe.x > 0f;
-    }
-
-
 }
