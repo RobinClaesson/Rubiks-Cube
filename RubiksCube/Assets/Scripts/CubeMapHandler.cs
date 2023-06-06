@@ -19,22 +19,22 @@ public class CubeMapHandler : MonoBehaviour
 
     public void UpdateCubeMap()
     {
-        cubeState.ReadFaces();
+        cubeState.UpdateState();
 
-        UpdateCubeFace(cubeState.up, upMap);
-        UpdateCubeFace(cubeState.down, downMap);
-        UpdateCubeFace(cubeState.left, leftMap);
-        UpdateCubeFace(cubeState.right, rightMap);
-        UpdateCubeFace(cubeState.front, frontMap);
-        UpdateCubeFace(cubeState.back, backMap);
+        UpdateCubeFace(cubeState.UpFaces, upMap);
+        UpdateCubeFace(cubeState.DownFaces, downMap);
+        UpdateCubeFace(cubeState.LeftFaces, leftMap);
+        UpdateCubeFace(cubeState.RightFaces, rightMap);
+        UpdateCubeFace(cubeState.FrontFaces, frontMap);
+        UpdateCubeFace(cubeState.BackFaces, backMap);
     }
 
-    private void UpdateCubeFace(List<GameObject> hitFaces, Transform sideMap)
+    private void UpdateCubeFace(List<GameObject> faces, Transform sideMap)
     {
         int i = 0;
         foreach(Transform map in sideMap)
         {
-            map.GetComponent<UnityEngine.UI.Image>().color = hitFaces[i++].GetComponent<Renderer>().material.color;
+            map.GetComponent<UnityEngine.UI.Image>().color = faces[i++].GetComponent<Renderer>().material.color;
         }
     }
 

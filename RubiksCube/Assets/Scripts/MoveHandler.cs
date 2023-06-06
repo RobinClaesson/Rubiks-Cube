@@ -9,16 +9,18 @@ using Unity.VisualScripting;
 public class MoveHandler : MonoBehaviour
 {
     RotateCube rotateCube;
+    TurnSides turnSides;
     CubeMapHandler cubeMapHandler;
 
     public Queue<Move> movesToDo = new Queue<Move>();
 
-    bool IsMoving => rotateCube.isRotating;
+    bool IsMoving => rotateCube.IsRotating || turnSides.IsTurning;
     bool doRayCast = true;
 
     private void Start()
     {
         rotateCube = GetComponent<RotateCube>();
+        turnSides = GetComponent<TurnSides>();
         cubeMapHandler = FindObjectOfType<CubeMapHandler>();
     }
 
@@ -58,11 +60,11 @@ public class MoveHandler : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.P))
             {
-                movesToDo.Enqueue(Move.Xp);
+                AddMove(Move.Xp);
             }
             else
             {
-                movesToDo.Enqueue(Move.X);
+                AddMove(Move.X);
             }
         }
 
@@ -70,11 +72,11 @@ public class MoveHandler : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.P))
             {
-                movesToDo.Enqueue(Move.Yp);
+                AddMove(Move.Yp);
             }
             else
             {
-                movesToDo.Enqueue(Move.Y);
+                AddMove(Move.Y);
             }
         }
 
@@ -82,26 +84,99 @@ public class MoveHandler : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.P))
             {
-                movesToDo.Enqueue(Move.Zp);
+                AddMove(Move.Zp);
             }
             else
             {
-                movesToDo.Enqueue(Move.Z);
+                AddMove(Move.Z);
+            }
+        }
+
+        //Sides
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (Input.GetKey(KeyCode.P))
+            {
+                AddMove(Move.Up);
+            }
+            else
+            {
+                AddMove(Move.U);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (Input.GetKey(KeyCode.P))
+            {
+                AddMove(Move.Dp);
+            }
+            else
+            {
+                AddMove(Move.D);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (Input.GetKey(KeyCode.P))
+            {
+                AddMove(Move.Lp);
+            }
+            else
+            {
+                AddMove(Move.L);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (Input.GetKey(KeyCode.P))
+            {
+                AddMove(Move.Rp);
+            }
+            else
+            {
+                AddMove(Move.R);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (Input.GetKey(KeyCode.P))
+            {
+                AddMove(Move.Fp);
+            }
+            else
+            {
+                AddMove(Move.F);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (Input.GetKey(KeyCode.P))
+            {
+                AddMove(Move.Bp);
+            }
+            else
+            {
+                AddMove(Move.B);
             }
         }
     }
 
     private void MakeMove(Move move)
     {
-        switch (move)
+        int translatedMove = (int)move;
+        switch (translatedMove)
         {
-            case Move.X:
-            case Move.Xp:
-            case Move.Y:
-            case Move.Yp:
-            case Move.Z:
-            case Move.Zp:
+            case <= 5:
                 rotateCube.MakeWholeRotationMove(move);
+                break;
+
+            case > 5 and <= 17:
+                turnSides.MakeSideTurnMove(move);
                 break;
         }
 
@@ -139,6 +214,13 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             AddMoves("X X X' X' Y Y' Y Y' Z Z'       Xp X");
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            AddMoves("R U Rp Up");
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            for (int i = 0; i < 7; i++)
+                AddMoves("R U Rp Up Y");
     }
 
 }

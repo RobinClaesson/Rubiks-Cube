@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CubeState : MonoBehaviour
 {
-    public List<GameObject> front = new List<GameObject>();
-    public List<GameObject> back = new List<GameObject>();
-    public List<GameObject> left = new List<GameObject>();
-    public List<GameObject> right = new List<GameObject>();
-    public List<GameObject> up = new List<GameObject>();
-    public List<GameObject> down = new List<GameObject>();
+    public List<GameObject> FrontFaces { get; private set; } = new List<GameObject>();
+    public List<GameObject> BackFaces { get; private set; } = new List<GameObject>();
+    public List<GameObject> LeftFaces { get; private set; } = new List<GameObject>();
+    public List<GameObject> RightFaces { get; private set; } = new List<GameObject>();
+    public List<GameObject> UpFaces { get; private set; } = new List<GameObject>();
+    public List<GameObject> DownFaces { get; private set; } = new List<GameObject>();
+
+    public List<GameObject> FrontPieces { get; private set; } = new List<GameObject>();
+    public List<GameObject> BackPieces { get; private set; } = new List<GameObject>();
+    public List<GameObject> LeftPieces { get; private set; } = new List<GameObject>();
+    public List<GameObject> RightPieces { get; private set; } = new List<GameObject>();
+    public List<GameObject> UpPieces { get; private set; } = new List<GameObject>();
+    public List<GameObject> DownPieces { get; private set; } = new List<GameObject>();
 
     public Transform raysUp;
     public Transform raysDown;
@@ -20,15 +29,28 @@ public class CubeState : MonoBehaviour
 
     int layermask = 1 << 8;
 
-    public void ReadFaces()
+    public void UpdateState()
     {
-        front = ReadFace(raysFront);
-        back = ReadFace(raysBack);
-        right = ReadFace(raysRight);
-        left = ReadFace(raysLeft);
-        up = ReadFace(raysUp);
-        down = ReadFace(raysDown);
+        FrontFaces = ReadFace(raysFront);
+        BackFaces = ReadFace(raysBack);
+        RightFaces = ReadFace(raysRight);
+        LeftFaces = ReadFace(raysLeft);
+        UpFaces = ReadFace(raysUp);
+        DownFaces = ReadFace(raysDown);
+
+        FrontPieces = FrontFaces.Select(x => x.transform.parent.gameObject).ToList();
+        BackPieces = BackFaces.Select(x => x.transform.parent.gameObject).ToList();
+        LeftPieces = LeftFaces.Select(x => x.transform.parent.gameObject).ToList();
+        RightPieces = RightFaces.Select(x => x.transform.parent.gameObject).ToList();
+        UpPieces = UpFaces.Select(x => x.transform.parent.gameObject).ToList();
+        DownPieces = DownFaces.Select(x => x.transform.parent.gameObject).ToList();
     }
+
+    //public List<GameObject> GetSidePiecesFromFace(GameObject face)
+    //{
+    //    GameObject piece = face.transform.parent.gameObject;
+        
+    //}
 
     private List<GameObject> ReadFace(Transform rayTransform)
     {

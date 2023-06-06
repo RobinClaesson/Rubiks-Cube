@@ -12,7 +12,7 @@ public class RotateCube : MonoBehaviour
     public float rotationSpeed = 200f;
     public float dragSpeed = 0.1f;
 
-    public bool isRotating => transform.rotation != rotationTarget.transform.rotation;
+    public bool IsRotating => transform.rotation != rotationTarget.transform.rotation;
 
     MoveHandler moveHandler;
 
@@ -44,7 +44,7 @@ public class RotateCube : MonoBehaviour
         else
         {
             //Rotate cube towards the swiped position
-            if (isRotating)
+            if (IsRotating)
             {
                 var step = rotationSpeed * Time.deltaTime;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationTarget.transform.rotation, step);
