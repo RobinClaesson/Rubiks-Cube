@@ -28,6 +28,24 @@ public class TurnSides : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateTurning();
+
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    RaycastHit raycastHit;
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    if(Physics.Raycast(ray, out raycastHit, 100f, layermask))
+        //    {
+        //        //List<GameObject> side = cubeState.GetSidePiecesFromPiece(raycastHit.transform.gameObject);
+        //        //SetRotation(side, 90);
+        //    }
+        //}
+
+    }
+
+    private void UpdateTurning()
+    {
         if (IsTurning)
         {
             if (middlePieceTransform.rotation != turnTarget.rotation)
@@ -45,19 +63,6 @@ public class TurnSides : MonoBehaviour
             }
 
         }
-
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    RaycastHit raycastHit;
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    if(Physics.Raycast(ray, out raycastHit, 100f, layermask))
-        //    {
-        //        //List<GameObject> side = cubeState.GetSidePiecesFromPiece(raycastHit.transform.gameObject);
-        //        //SetRotation(side, 90);
-        //    }
-        //}
-
     }
 
     public void MakeSideTurnMove(Move move)

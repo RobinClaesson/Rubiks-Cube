@@ -201,7 +201,20 @@ public class MoveHandler : MonoBehaviour
 
     public List<Move> ConvertStringToMoves(string moveString)
     {
-        return moveString.Replace('\'', 'p').Split(' ').Where(s => s != string.Empty).Select(x => (Move)Enum.Parse(typeof(Move), x)).ToList();
+        var splitMoves = moveString.Replace('\'', 'p').Split(' ').Where(s => s != string.Empty).ToList();
+
+        for (int i = 0; i < splitMoves.Count(); i++)
+        {
+            if (splitMoves[i].Contains('2'))
+            {
+                var move = splitMoves[i].Substring(0, 1);
+                splitMoves.RemoveAt(i);
+                splitMoves.Insert(i, move);
+                splitMoves.Insert(i, move);
+            }
+        }
+
+        return splitMoves.Select(x => (Move)Enum.Parse(typeof(Move), x)).ToList();
     }
 
     private void CheckDebugKeys()
@@ -221,6 +234,9 @@ public class MoveHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5))
             for (int i = 0; i < 7; i++)
                 AddMoves("R U Rp Up Y");
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            AddMoves("Z Z Z Z U2 X  X  X X R2");
     }
 
 }
