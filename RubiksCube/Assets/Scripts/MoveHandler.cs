@@ -35,7 +35,7 @@ public class MoveHandler : MonoBehaviour
             {
                 cubeMapHandler.UpdateCubeMap();
                 doRayCast = false;
-                print("Ray Cast");
+                //print("Ray Cast");
             }
 
             if (movesToDo.Count > 0)

@@ -11,17 +11,15 @@ public class CubeMapHandler : MonoBehaviour
     public Transform downMap;
 
     CubeState cubeState;
-    ReadCubeFaces readCubeFaces;
     // Start is called before the first frame update
     void Start()
     {
         cubeState = FindObjectOfType<CubeState>();
-        readCubeFaces = FindObjectOfType<ReadCubeFaces>();
     }
 
     public void UpdateCubeMap()
     {
-        readCubeFaces.ReadFaces();
+        cubeState.ReadFaces();
 
         UpdateCubeFace(cubeState.up, upMap);
         UpdateCubeFace(cubeState.down, downMap);
