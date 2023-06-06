@@ -40,9 +40,10 @@ public class MacroHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Check macro key press
         for (int i = 0; i < allMacros.Count; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i) || Input.GetKeyDown(KeyCode.Keypad1 + i))
                 moveHandler.AddMoves(allMacros[i]);
         }
     }
