@@ -8398,7 +8398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40fca9f18943cff4f891139865b6d038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 200
+  turnSpeed: 300
   turnTarget: {fileID: 1591519409}
 --- !u!4 &7005107372210440106 stripped
 Transform:

@@ -120,7 +120,6 @@ public class TurnSides : MonoBehaviour
             piece.transform.parent = middlePiece.transform;
         }
 
-        turnTarget.position = middlePieceTransform.position;
         turnTarget.rotation = middlePieceTransform.rotation;
 
         Vector3 axis = middlePiece.transform.localPosition.normalized;

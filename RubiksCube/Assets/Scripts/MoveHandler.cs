@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-using Newtonsoft.Json.Bson;
-using Unity.VisualScripting;
+using System.Text;
 
 public class MoveHandler : MonoBehaviour
 {
@@ -28,7 +26,7 @@ public class MoveHandler : MonoBehaviour
     void Update()
     {
         CheckKeys();
-        CheckDebugKeys();
+        CheckComboKeys();
 
         //Make next move
         if (!IsMoving)
@@ -164,6 +162,13 @@ public class MoveHandler : MonoBehaviour
                 AddMove(Move.B);
             }
         }
+
+
+        //Scramble
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ScrambleCube();
+        }
     }
 
     private void MakeMove(Move move)
@@ -199,6 +204,43 @@ public class MoveHandler : MonoBehaviour
         AddMoves(ConvertStringToMoves(moveString));
     }
 
+    private string[] possibleRandomMoves = new string[] { "U", "L", "F", "R", "B", "D" };
+    public void ScrambleCube()
+    {
+        List<string> baseMoves = new List<string>();
+        int last = -1, current = -1;
+        for (int i = 0; i < 25; i++)
+        {
+            while (last == current)
+                current = UnityEngine.Random.Range(0, possibleRandomMoves.Length);
+
+            baseMoves.Add(possibleRandomMoves[current]);
+            last = current;
+        }
+
+        string moves = string.Empty;
+        foreach (string move in baseMoves)
+        {
+            int varation = UnityEngine.Random.Range(0, 3);
+
+            switch (varation)
+            {
+                case 0:
+                    moves += $"{move} ";
+                    break;
+                case 1:
+                    moves += $"{move}p ";
+                    break;
+                case 2:
+                    moves += $"{move}2 ";
+                    break;
+            }
+        }
+
+        AddMoves(moves);
+    }
+
+
     public List<Move> ConvertStringToMoves(string moveString)
     {
         var splitMoves = moveString.Replace('\'', 'p').Split(' ').Where(s => s != string.Empty).ToList();
@@ -217,26 +259,19 @@ public class MoveHandler : MonoBehaviour
         return splitMoves.Select(x => (Move)Enum.Parse(typeof(Move), x)).ToList();
     }
 
-    private void CheckDebugKeys()
+    private void CheckComboKeys()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            AddMoves(new List<Move>() { Move.X, Move.Xp, Move.Y, Move.Yp, Move.Z, Move.Zp });
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            AddMoves("X X X Y Y Y Z Z Z Xp X");
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            AddMoves("X X X' X' Y Y' Y Y' Z Z'       Xp X");
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
             AddMoves("R U Rp Up");
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-            for (int i = 0; i < 7; i++)
-                AddMoves("R U Rp Up Y");
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            AddMoves("Lp Up L U");
 
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-            AddMoves("Z Z Z Z U2 X  X  X X R2");
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            AddMoves("Up Rp U R");
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            AddMoves("U L Up Lp");
     }
 
 }
