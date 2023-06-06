@@ -10,7 +10,7 @@ public class MoveHandler : MonoBehaviour
     TurnSides turnSides;
     CubeMapHandler cubeMapHandler;
 
-    public Queue<Move> movesToDo = new Queue<Move>();
+    public List<Move> movesToDo = new List<Move>();
 
     bool IsMoving => rotateCube.IsRotating || turnSides.IsTurning;
     bool doRayCast = true;
@@ -39,7 +39,10 @@ public class MoveHandler : MonoBehaviour
             }
 
             if (movesToDo.Count > 0)
-                MakeMove(movesToDo.Dequeue());
+            {
+                MakeMove(movesToDo[0]);
+                movesToDo.RemoveAt(0);
+            }
         }
 
     }
@@ -190,54 +193,57 @@ public class MoveHandler : MonoBehaviour
 
     public void AddMove(Move move)
     {
-        movesToDo.Enqueue(move);
+        movesToDo.Add(move);
     }
 
     public void AddMoves(List<Move> moves)
     {
-        foreach (Move move in moves)
-            movesToDo.Enqueue(move);
+        movesToDo.AddRange(moves);
     }
 
     public void AddMoves(string moveString)
     {
-        AddMoves(ConvertStringToMoves(moveString));
+        movesToDo.AddRange(ConvertStringToMoves(moveString));
     }
 
     private string[] possibleRandomMoves = new string[] { "U", "L", "F", "R", "B", "D" };
     public void ScrambleCube()
     {
-        List<string> baseMoves = new List<string>();
-        int last = -1, current = -1;
-        for (int i = 0; i < 25; i++)
+        if (!IsMoving)
         {
-            while (last == current)
-                current = UnityEngine.Random.Range(0, possibleRandomMoves.Length);
 
-            baseMoves.Add(possibleRandomMoves[current]);
-            last = current;
-        }
-
-        string moves = string.Empty;
-        foreach (string move in baseMoves)
-        {
-            int varation = UnityEngine.Random.Range(0, 3);
-
-            switch (varation)
+            List<string> baseMoves = new List<string>();
+            int last = -1, current = -1;
+            for (int i = 0; i < 25; i++)
             {
-                case 0:
-                    moves += $"{move} ";
-                    break;
-                case 1:
-                    moves += $"{move}p ";
-                    break;
-                case 2:
-                    moves += $"{move}2 ";
-                    break;
-            }
-        }
+                while (last == current)
+                    current = UnityEngine.Random.Range(0, possibleRandomMoves.Length);
 
-        AddMoves(moves);
+                baseMoves.Add(possibleRandomMoves[current]);
+                last = current;
+            }
+
+            string moves = string.Empty;
+            foreach (string move in baseMoves)
+            {
+                int varation = UnityEngine.Random.Range(0, 3);
+
+                switch (varation)
+                {
+                    case 0:
+                        moves += $"{move} ";
+                        break;
+                    case 1:
+                        moves += $"{move}p ";
+                        break;
+                    case 2:
+                        moves += $"{move}2 ";
+                        break;
+                }
+            }
+
+            AddMoves(moves);
+        }
     }
 
 
