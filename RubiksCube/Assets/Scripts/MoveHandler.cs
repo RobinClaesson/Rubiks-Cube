@@ -13,7 +13,8 @@ public class MoveHandler : MonoBehaviour
 
     public Queue<Move> movesToDo = new Queue<Move>();
 
-    public bool IsMoving => rotateCube.isRotating;
+    bool IsMoving => rotateCube.isRotating;
+    bool doRayCast = true;
 
     private void Start()
     {
@@ -28,11 +29,19 @@ public class MoveHandler : MonoBehaviour
         CheckDebugKeys();
 
         //Make next move
-        if (movesToDo.Count > 0 && !IsMoving)
-            MakeMove(movesToDo.Dequeue());
+        if (!IsMoving)
+        {
+            if (doRayCast)
+            {
+                cubeMapHandler.UpdateCubeMap();
+                doRayCast = false;
+                print("Ray Cast");
+            }
 
-        //TODO: Make this only happend on move end
-        cubeMapHandler.UpdateCubeMap();
+            if (movesToDo.Count > 0)
+                MakeMove(movesToDo.Dequeue());
+        }
+
     }
 
     private void MakeMove(Move move)
@@ -48,6 +57,8 @@ public class MoveHandler : MonoBehaviour
                 rotateCube.MakeWholeRotationMove(move);
                 break;
         }
+
+        doRayCast = true;
     }
 
     private void CheckKeys()
