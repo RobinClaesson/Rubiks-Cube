@@ -26,7 +26,6 @@ public class MoveHandler : MonoBehaviour
     void Update()
     {
         CheckKeys();
-        CheckComboKeys();
 
         //Make next move
         if (!IsMoving)
@@ -263,21 +262,6 @@ public class MoveHandler : MonoBehaviour
         }
 
         return splitMoves.Select(x => (Move)Enum.Parse(typeof(Move), x)).ToList();
-    }
-
-    private void CheckComboKeys()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            AddMoves("R U Rp Up");
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            AddMoves("Lp Up L U");
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            AddMoves("U R Up Rp");
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            AddMoves("Up Lp U L");
     }
 
 }
