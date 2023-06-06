@@ -44,20 +44,8 @@ public class MoveHandler : MonoBehaviour
 
     }
 
-    private void MakeMove(Move move)
+    public void DoRayCast()
     {
-        switch (move)
-        {
-            case Move.X:
-            case Move.Xp:
-            case Move.Y:
-            case Move.Yp:
-            case Move.Z:
-            case Move.Zp:
-                rotateCube.MakeWholeRotationMove(move);
-                break;
-        }
-
         doRayCast = true;
     }
 
@@ -103,15 +91,37 @@ public class MoveHandler : MonoBehaviour
         }
     }
 
-    public void MakeMoves(List<Move> moves)
+    private void MakeMove(Move move)
+    {
+        switch (move)
+        {
+            case Move.X:
+            case Move.Xp:
+            case Move.Y:
+            case Move.Yp:
+            case Move.Z:
+            case Move.Zp:
+                rotateCube.MakeWholeRotationMove(move);
+                break;
+        }
+
+        doRayCast = true;
+    }
+
+    public void AddMove(Move move)
+    {
+        movesToDo.Enqueue(move);
+    }
+
+    public void AddMoves(List<Move> moves)
     {
         foreach (Move move in moves)
             movesToDo.Enqueue(move);
     }
 
-    public void MakeMoves(string moveString)
+    public void AddMoves(string moveString)
     {
-        MakeMoves(ConvertStringToMoves(moveString));
+        AddMoves(ConvertStringToMoves(moveString));
     }
 
     public List<Move> ConvertStringToMoves(string moveString)
@@ -122,13 +132,13 @@ public class MoveHandler : MonoBehaviour
     private void CheckDebugKeys()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            MakeMoves(new List<Move>() { Move.X, Move.Xp, Move.Y, Move.Yp, Move.Z, Move.Zp });
+            AddMoves(new List<Move>() { Move.X, Move.Xp, Move.Y, Move.Yp, Move.Z, Move.Zp });
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            MakeMoves("X X X Y Y Y Z Z Z Xp X");
+            AddMoves("X X X Y Y Y Z Z Z Xp X");
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            MakeMoves("X X X' X' Y Y' Y Y' Z Z'       Xp X");
+            AddMoves("X X X' X' Y Y' Y Y' Z Z'       Xp X");
     }
 
 }

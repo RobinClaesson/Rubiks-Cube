@@ -14,6 +14,13 @@ public class RotateCube : MonoBehaviour
 
     public bool isRotating => transform.rotation != rotationTarget.transform.rotation;
 
+    MoveHandler moveHandler;
+
+    private void Start()
+    {
+        moveHandler = FindObjectOfType<MoveHandler>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -77,6 +84,8 @@ public class RotateCube : MonoBehaviour
                 MakeWholeRotationMove(Move.X);
             else if (swipe.y < 0 && swipe.x < 0f)
                 MakeWholeRotationMove(Move.Xp);
+
+            moveHandler.DoRayCast();
         }
     }
 
