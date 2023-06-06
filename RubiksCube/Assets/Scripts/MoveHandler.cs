@@ -8,14 +8,17 @@ using Unity.VisualScripting;
 
 public class MoveHandler : MonoBehaviour
 {
-    RotateCube rotateCubeScript;
+    RotateCube rotateCube;
+    CubeMapHandler cubeMapHandler;
+
     public Queue<Move> movesToDo = new Queue<Move>();
 
-    public bool IsMoving => rotateCubeScript.isRotating;
+    public bool IsMoving => rotateCube.isRotating;
 
     private void Start()
     {
-        rotateCubeScript = GetComponent<RotateCube>();
+        rotateCube = GetComponent<RotateCube>();
+        cubeMapHandler = FindObjectOfType<CubeMapHandler>();
     }
 
     // Update is called once per frame
@@ -27,6 +30,9 @@ public class MoveHandler : MonoBehaviour
         //Make next move
         if (movesToDo.Count > 0 && !IsMoving)
             MakeMove(movesToDo.Dequeue());
+
+        //TODO: Make this only happend on move end
+        cubeMapHandler.UpdateCubeMap();
     }
 
     private void MakeMove(Move move)
@@ -39,7 +45,7 @@ public class MoveHandler : MonoBehaviour
             case Move.Yp:
             case Move.Z:
             case Move.Zp:
-                rotateCubeScript.MakeWholeRotationMove(move);
+                rotateCube.MakeWholeRotationMove(move);
                 break;
         }
     }
