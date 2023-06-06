@@ -274,10 +274,10 @@ public class MoveHandler : MonoBehaviour
             AddMoves("Lp Up L U");
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            AddMoves("Up Rp U R");
+            AddMoves("U R Up Rp");
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            AddMoves("U L Up Lp");
+            AddMoves("Up Lp U L");
     }
 
 }
