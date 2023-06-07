@@ -1,3 +1,5 @@
 Chalkboard: BIld av <a href="https://pixabay.com/sv/users/geralt-9301/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2167844">Gerd Altmann</a> från <a href="https://pixabay.com/sv//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2167844">Pixabay</a>
 
 Tutorial (Not taken all): https://www.youtube.com/@megalomatt
+
+Modals: https://assetstore.unity.com/packages/tools/gui/easy-modal-dialog-71363
