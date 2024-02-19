@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Bson;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateCube : MonoBehaviour
@@ -24,8 +25,11 @@ public class RotateCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckSwipe();
-        UpdateRotation();
+        if (!moveHandler.IsScrambling)
+        {
+            CheckSwipe();
+            UpdateRotation();
+        }
 
         oldMousePos = Input.mousePosition;
     }

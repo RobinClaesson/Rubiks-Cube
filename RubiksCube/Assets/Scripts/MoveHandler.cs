@@ -14,6 +14,8 @@ public class MoveHandler : MonoBehaviour
 
     bool IsMoving => rotateCube.IsRotating || turnSides.IsTurning;
     bool doRayCast = true;
+    
+    public bool IsScrambling { get; private set; } = false;
 
     private void Start()
     {
@@ -25,7 +27,8 @@ public class MoveHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckKeys();
+        if (!IsScrambling)
+            CheckKeys();
 
         //Make next move
         if (!IsMoving)
@@ -41,6 +44,10 @@ public class MoveHandler : MonoBehaviour
             {
                 MakeMove(movesToDo[0]);
                 movesToDo.RemoveAt(0);
+            }
+            else
+            {
+                IsScrambling = false;
             }
         }
 
@@ -210,7 +217,7 @@ public class MoveHandler : MonoBehaviour
     {
         if (!IsMoving)
         {
-
+            IsScrambling = true;
             List<string> baseMoves = new List<string>();
             int last = -1, current = -1;
             for (int i = 0; i < 25; i++)
