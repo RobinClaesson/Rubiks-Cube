@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class MacroHandler : MonoBehaviour
 {
     MoveHandler moveHandler;
-    string[] defaultMacros = new string[] { "R U Rp Up", "Lp Up L U", "U R Up Rp", "Up Lp U L" };
+    string[] defaultMacros = new string[] { "R U Rp Up", "U R Up Rp", "Lp Up L U", "Up Lp U L" };
     public List<string> allMacros = new List<string>();
 
     public List<GameObject> buttonObjects = new List<GameObject>();
@@ -70,7 +70,10 @@ public class MacroHandler : MonoBehaviour
 
                 if (allMacros[i].Length <= 45)
                 {
-                    buttonMacroTexts[i].text = allMacros[i];
+                    //Quick fix for V1 version
+                    var split = allMacros[i].Replace('p', '\'').Split(' ');
+
+                    buttonMacroTexts[i].text = $"{split[0]} {split[1]}\n{split[2]} {split[3]}";
                 }
                 else
                 {
