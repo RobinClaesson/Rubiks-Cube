@@ -58,7 +58,7 @@ public class MoveHandler : MonoBehaviour
         //Rotations
         if (Input.GetKeyDown(KeyCode.X))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Xp);
             }
@@ -70,7 +70,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Yp);
             }
@@ -82,7 +82,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Zp);
             }
@@ -95,7 +95,7 @@ public class MoveHandler : MonoBehaviour
         //Sides
         if (Input.GetKeyDown(KeyCode.U))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Up);
             }
@@ -107,7 +107,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Dp);
             }
@@ -119,7 +119,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Lp);
             }
@@ -131,7 +131,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Rp);
             }
@@ -143,7 +143,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Fp);
             }
@@ -155,7 +155,7 @@ public class MoveHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 AddMove(Move.Bp);
             }
